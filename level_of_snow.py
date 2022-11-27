@@ -15,7 +15,11 @@ for index, point in enumerate(terrain[1:],start=1):
     if index==1:
         last_peak=point
     # sprawdzamy czy punkt jest szczytem
-    if point == max(terrain[index-1:index+2]):
+    try:
+        is_point_highest = point>terrain[index-1] and point>terrain[index+1]
+    except IndexError:
+        is_point_highest = point>terrain[index-1]
+    if is_point_highest:
         # wybieramy mniejszy szczyt jako aktualny poziom sniegu
         actual_snow_level = min([last_peak, point])
         # zawsze chcemy wiedziec jak wysoki byl ostatni szczyt
